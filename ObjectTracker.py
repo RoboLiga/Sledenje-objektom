@@ -1,9 +1,10 @@
+"""Provides ObjectTracker class which implements Kalman filter"""
 import numpy as np
 from numpy.linalg import inv
 from math import atan2
 from Resources import ResKalmanFilter
 
-class ObjectTracker(object):
+class ObjectTracker:
     """Tracks object using Kalman filter"""
     def __init__(self, type, id, position, velocity, accel=(0,0,0,0)):
         self.type = type

@@ -1,5 +1,6 @@
-import json
-class GameLiveData(object):
+"""Provides GameLiveData class, which is communicated to robots"""
+#import json
+class GameLiveData:
     """Holds data to be sent to robots"""
     def __init__(self):
         self.gameOn = False
@@ -29,8 +30,8 @@ class GameLiveData(object):
                   }
         self.apples = []
         self.robots = []
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=False, indent=4) 
+    #def toJSON(self):
+    #   return json.dumps(self, default=lambda o: o.__dict__, 
+    #        sort_keys=False, indent=4) 
 
 

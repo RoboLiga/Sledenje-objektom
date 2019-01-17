@@ -1,5 +1,6 @@
+"""Provides Entity class which describes an object on the map"""
 from math import pi
-class Entity(object):
+class Entity:
     """Holds data of an object in the field"""
     def __init__(self,type,id,position,direction):    
         if  type == 0:

@@ -1,5 +1,6 @@
+"""Provides Score class which handles score of the two competing teams"""
 from Resources import ResObjects
-class Score(object):
+class Score:
     """Holds the score for each team"""
     def __init__(self):
         self.team1Apples = []

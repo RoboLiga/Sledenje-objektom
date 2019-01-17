@@ -1,5 +1,6 @@
-import json
-class ResCamera(object):
+"""Provides starting configurations and resources"""
+#import json
+class ResCamera:
     """Stores camera configs"""
 
     # Camera parameters for removing distortion
@@ -17,7 +18,7 @@ class ResCamera(object):
     scale0 = 0.954
     scale1 = 0.00001
 
-class ResObjects(object):
+class ResObjects:
     """Stores Object configs"""
     ROBOT = 0
     APPLE_GOOD = 1
@@ -27,7 +28,7 @@ class ResObjects(object):
     ApplesBadIds = {0}
     ObjectTimeout = 100
 
-class ResGame(object):
+class ResGame:
     """Game configuration"""
     def __init__(self):
         # Aruco Id for each team
@@ -45,18 +46,18 @@ class ResGame(object):
         # Apple value
         self.goodApple = 1
         self.badApple = -2
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=False, indent=4)
+    #def toJSON(self):
+    #    return json.dumps(self, default=lambda o: o.__dict__, 
+    #        sort_keys=False, indent=4)
 
-class ResKeys(object):
+class ResKeys:
     loadKey = 'l'
     editMapKey = 'e'
     alterScoreKey = 'c'
     startGameKey = 's'
     quitKey = 'q' 
 
-class ResGUIText(object):
+class ResGUIText:
     """Holds various strings displayed on window"""
     sFieldDefineGuide = ['Mark Field Top Left Corner',
                              'Mark Field Top Right Corner',
@@ -80,14 +81,14 @@ class ResGUIText(object):
     
 
 
-class ResMap(object):
+class ResMap:
     """Stores Map configs"""
     def __init__(self):
         self.fieldCorners = []
         self.imageWidth = 0
         self.imageHeighth = 0
 
-class ResFileNames(object):
+class ResFileNames:
     """Stores file names for json data"""
     gameDataFileName = "gameData.json"
     gameLiveDataFileName = "gameLive.json"
@@ -96,7 +97,7 @@ class ResFileNames(object):
     videoSource = "../Videos/ROBO_9.mp4"
     
 
-class ResKalmanFilter(object):
+class ResKalmanFilter:
     """Stores Kalman Filter configs"""
     dt = 1 # Sampling rate
     u = 0.0 # Acceleration magnitude
@@ -104,7 +105,7 @@ class ResKalmanFilter(object):
     measurementNoiseX = 0.6
     measurementNoiseY = 0.6
 
-class ResArucoDetector(object):
+class ResArucoDetector:
     # Min.  okno za binarizacijo.  Premajhno okno naredi celotne tage iste
     # barve
     adaptiveThreshWinSizeMin = 13

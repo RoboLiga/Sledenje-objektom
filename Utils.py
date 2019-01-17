@@ -1,3 +1,4 @@
+"""Provides various utility functions"""
 import cv2
 from Resources import *
 from math import sqrt, cos, sin
@@ -7,7 +8,7 @@ from shapely.geometry.polygon import Polygon
 from timeit import default_timer as timer
 from GameLiveData import GameLiveData
 from os import replace
-import json
+import ujson
 import pickle
 from ObjectTracker import ObjectTracker
 from Entity import Entity
@@ -275,24 +276,21 @@ def writeGameData(configMap, gameScore, gameStart, timeLeft, objects):
     gLive.score["Team2"] = gameScore.getScore(2)
     outputFile = ResFileNames.gameLiveDataTempFileName
     with open(str(outputFile),'w') as f:
-        f.write(gLive.toJSON())
+        #f.write(gLive.toJSON())
+        ujson.dump(gLive,f)
     try:
         replace(ResFileNames.gameLiveDataTempFileName,ResFileNames.gameLiveDataFileName)
     except:
         pass
 
-def drawOverlay(frame_markers, objects, configMap, fps, timeLeft, gameScore, gameStart, fieldEditMode, changeScore):
+def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore):
         
-        # Draw object centers and direction
+        # Display object centers and direction
         for obj in objects:
             cv2.circle(frame_markers, (int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))), 2, (0,255,255),2) 
             cv2.line(frame_markers, (int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))), (int(round(objects[obj].position[0] + 20 * cos(objects[obj].direction))),int(round(objects[obj].position[1] + 20 * sin(objects[obj].direction)))), (255,0,196), 2)
-        
         # Set font
         font = cv2.FONT_HERSHEY_SIMPLEX
-        
-        # Display FPS
-        cv2.putText(frame_markers,ResGUIText.sFps + str(int(fps)),(10,30), font, 1,(0,255,255),2,cv2.LINE_AA)
         
         # Display time left and score
         if gameStart:
@@ -316,7 +314,7 @@ def drawOverlay(frame_markers, objects, configMap, fps, timeLeft, gameScore, gam
                putTextCentered(frame_markers,str(gameScore.getScore(2)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
             except: 
                 pass
-        # Draw map
+        # Display map
         for p in configMap.fieldCorners:
             cv2.circle(frame_markers, (p[0],p[1]), 3, (0,255,255),3)
         try:
@@ -338,7 +336,11 @@ def drawOverlay(frame_markers, objects, configMap, fps, timeLeft, gameScore, gam
             pass
         #Display help
         cv2.putText(frame_markers,ResGUIText.sHelp,(10,configMap.imageHeighth - 10), font, 0.5,(0,0,255),1,cv2.LINE_AA)
-        
+
+def drawFPS(frame_markers,fps):
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        # Display FPS
+        cv2.putText(frame_markers,ResGUIText.sFps + str(int(fps)),(10,30), font, 1,(0,255,255),2,cv2.LINE_AA)
 
 def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLoaded, fieldEditMode, changeScore, quit):
     
@@ -361,7 +363,7 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
     elif keypressed == ord(ResKeys.loadKey) and not gameStart and not fieldEditMode:
             try:
                 with open(ResFileNames.gameDataFileName, "r") as read_file:
-                    gameData = json.load(read_file)
+                    gameData = ujson.load(read_file)
                 gameDataLoaded = True
                 print("Game Data loaded!")
             except Exception as e: 

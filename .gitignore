@@ -6,6 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sln
+*.pyproj
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -259,3 +261,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Sledenje.pyperf
+/Sledenje1.pyperf
+/Tracker.pyperf
