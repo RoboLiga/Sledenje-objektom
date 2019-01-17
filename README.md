@@ -6,5 +6,5 @@
 * shapely: ```conda install shapely```
 
 ## Zagon
-Vse nastavitve so v datoteki ```Resources.py```
-Zaženi skripto ```Tracker.py```
+Vse nastavitve so v datoteki ```Resources.py```.
+Zagonska skripta je ```Tracker.py```.
