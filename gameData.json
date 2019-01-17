@@ -1,0 +1,14 @@
+{
+    "teams": {
+        "Ekipa 1": 0,
+        "Ekipa 2": 1,
+        "Ekipa 3": 2
+    },
+    "currentGameTeams": {
+        "Team1": 0,
+        "Team2": 1
+    },
+    "gameTime": 10,
+    "goodApple": 1,
+    "badApple": -2
+}
