@@ -283,6 +283,12 @@ def writeGameData(configMap, gameScore, gameStart, timeLeft, objects):
     except:
         pass
 
+    # Dump latest map into file
+    if fieldEditMode:
+        if(len(configMap.fieldCorners) == 12):
+            with open(ResFileNames.mapConfigFileName, 'wb') as output:
+                pickle.dump(configMap, output, pickle.HIGHEST_PROTOCOL)
+
 def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore):
         
         # Display object centers and direction

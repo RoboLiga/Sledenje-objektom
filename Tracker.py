@@ -9,9 +9,9 @@ import cv2.aruco as aruco
 import Utils as u
 from Resources import ResFileNames, ResGUIText
 
-__author__ = "Davor Sluga, Ratko Pilipovic, Matija Rezar"
+__author__ = "Laboratory for adaptive systems and parallel processing"
 __copyright__ = "Copyright 2019, UL FRI - LASPP"
-__credits__ = ["Davor Sluga, Ratko Pilipovic, Matija Rezar"]
+__credits__ = ["Laboratory for adaptive systems and parallel processing"]
 __license__ = "GPL"
 __version__ = "0.9"
 __maintainer__ = "Davor Sluga"
@@ -72,14 +72,7 @@ while(ret and not quit):
             
 
         # Write game data to file
-        u.writeGameData(configMap, gameScore, gameStart, timeLeft, objects)
-        
-        
-        # Dump latest map into file
-        if fieldEditMode:
-            if(len(configMap.fieldCorners) == 12):
-                with open(ResFileNames.mapConfigFileName, 'wb') as output:
-                    pickle.dump(configMap, output, pickle.HIGHEST_PROTOCOL)
+        u.writeGameData(configMap, gameScore, gameStart, timeLeft, objects, fieldEditMode)
         
         # Draw GUI and objects
         frame_markers = aruco.drawDetectedMarkers(color.copy(), cornersTracked, ids)
