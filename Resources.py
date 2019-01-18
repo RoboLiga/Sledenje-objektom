@@ -1,32 +1,5 @@
 """Provides starting configurations and resources"""
 #import json
-class ResCamera:
-    """Stores camera configs"""
-
-    # Camera parameters for removing distortion
-    k1 = -0.4077
-    k2 = 0.2827
-    k3 = -0.1436
-    p1 = 6.6668e-4
-    p2 = -0.0025
-    fx = 1.509369848235880e+03
-    fy = 1.509243126646947e+03
-    cx = 9.678725207348843e+02
-    cy = 5.356599023732050e+02
-
-    # Scaling factors
-    scale0 = 0.954
-    scale1 = 0.00001
-
-class ResObjects:
-    """Stores Object configs"""
-    ROBOT = 0
-    APPLE_GOOD = 1
-    APPLE_BAD = 2
-    RobotIds = {6,10,25,22,43}
-    ApplesGoodIds = {0}
-    ApplesBadIds = {0}
-    ObjectTimeout = 100
 
 class ResGame:
     """Game configuration"""
@@ -49,6 +22,24 @@ class ResGame:
     #def toJSON(self):
     #    return json.dumps(self, default=lambda o: o.__dict__, 
     #        sort_keys=False, indent=4)
+
+class ResObjects:
+    """Stores Object configs"""
+    ROBOT = 0
+    APPLE_GOOD = 1
+    APPLE_BAD = 2
+    RobotIds = {6,10,25,22,43}
+    ApplesGoodIds = {0}
+    ApplesBadIds = {0}
+    ObjectTimeout = 100
+
+class ResFileNames:
+    """Stores file names for json data"""
+    gameDataFileName = "gameData.json"
+    gameLiveDataFileName = "gameLive.json"
+    gameLiveDataTempFileName = "gameLiveTemp.json"
+    mapConfigFileName = "mapConfig"
+    videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
 
 class ResKeys:
     loadKey = 'l'
@@ -87,14 +78,6 @@ class ResMap:
         self.fieldCorners = []
         self.imageWidth = 0
         self.imageHeighth = 0
-
-class ResFileNames:
-    """Stores file names for json data"""
-    gameDataFileName = "gameData.json"
-    gameLiveDataFileName = "gameLive.json"
-    gameLiveDataTempFileName = "gameLiveTemp.json"
-    mapConfigFileName = "mapConfig"
-    videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
     
 
 class ResKalmanFilter:
@@ -131,3 +114,21 @@ class ResArucoDetector:
     # moramo to nastaviti nizko, kar pa lahko pomeni, da isti tag detektira
     # dvakrat, kar lahko filtriramo naknadno.
     minMarkerDistanceRate = 0.001
+
+class ResCamera:
+    """Stores camera configs"""
+
+    # Camera parameters for removing distortion
+    k1 = -0.4077
+    k2 = 0.2827
+    k3 = -0.1436
+    p1 = 6.6668e-4
+    p2 = -0.0025
+    fx = 1.509369848235880e+03
+    fy = 1.509243126646947e+03
+    cx = 9.678725207348843e+02
+    cy = 5.356599023732050e+02
+
+    # Scaling factors
+    scale0 = 0.954
+    scale1 = 0.00001
