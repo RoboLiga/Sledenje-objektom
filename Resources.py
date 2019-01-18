@@ -36,7 +36,7 @@ class ResObjects:
 class ResFileNames:
     """Stores file names for json data"""
     gameDataFileName = "gameData.json"
-    gameLiveDataFileName = "..\nginx\html\game.json"
+    gameLiveDataFileName = "../nginx/html/game.json"
     gameLiveDataTempFileName = "gameLiveTemp.json"
     mapConfigFileName = "mapConfig"
     videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
