@@ -94,7 +94,7 @@ class ResFileNames:
     gameLiveDataFileName = "gameLive.json"
     gameLiveDataTempFileName = "gameLiveTemp.json"
     mapConfigFileName = "mapConfig"
-    videoSource = "../Videos/ROBO_9.mp4"
+    videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
     
 
 class ResKalmanFilter:

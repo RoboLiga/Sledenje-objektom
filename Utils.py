@@ -234,7 +234,7 @@ def checkTimeLeft(gameStart, timeLeft, startTime, totalTime):
     
     return (gameStart,timeLeft)     
 
-def writeGameData(configMap, gameScore, gameStart, timeLeft, objects):
+def writeGameData(configMap, gameScore, gameStart, timeLeft, objects, fieldEditMode):
     gLive = GameLiveData()    
     gLive.gameOn = gameStart     
     gLive.timeLeft = timeLeft
@@ -386,6 +386,7 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
             fieldEditMode = not fieldEditMode
             if fieldEditMode:
                 configMap.fieldCorners.clear()
+                ResGUIText.fieldDefineGuideId=0
                 cv2.setMouseCallback(ResGUIText.sWindowName, getClickPoint,configMap)
             else:
                 cv2.setMouseCallback(ResGUIText.sWindowName, lambda *args : None)
