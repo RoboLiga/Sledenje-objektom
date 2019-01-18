@@ -1,7 +1,7 @@
 # Sledenje-objektom
 
 ## Odvisnosti
-* [Anaconda](https://www.anaconda.com/): s Python 3.7+
+* [Anaconda](https://www.anaconda.com/) s Python 3.7+
 * Opencv: ```conda install opencv```
 * Shapely: ```conda install shapely```
 * Ujson.  ```conda install ujson```
