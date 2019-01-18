@@ -1,12 +1,12 @@
 # Sledenje-objektom
 
-## Potrebni paketi
-* Anaconda
-* Python 3.*
-* opencv: ```conda install opencv```
-* shapely: ```conda install shapely```
-* ujson.  ```conda install ujson```
+## Odvisnosti
+* [Anaconda](https://www.anaconda.com/) s Python 3.7+
+* Opencv: ```conda install opencv```
+* Shapely: ```conda install shapely```
+* Ujson:  ```conda install ujson```
 
 ## Zagon
-Vse nastavitve so v datoteki ```Resources.py```.
-Zagonska skripta je ```Tracker.py```.
+* Vse sistemske nastavitve so v datoteki ```Resources.py```.
+* Ekipe in nastavitve tekme so v datoteki ```gameData.json```.
+* Zagonska skripta je ```Tracker.py```.
