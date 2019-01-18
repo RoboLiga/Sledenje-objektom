@@ -362,7 +362,7 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
             if changeScore:
                 AreaT1 = [moveOrigin(*tuple(configMap.fieldCorners[5]),configMap),moveOrigin(*tuple(configMap.fieldCorners[6]),configMap),moveOrigin(*tuple(configMap.fieldCorners[7]),configMap),moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)]
                 AreaT2 = [moveOrigin(*tuple(configMap.fieldCorners[8]),configMap),moveOrigin(*tuple(configMap.fieldCorners[9]),configMap),moveOrigin(*tuple(configMap.fieldCorners[10]),configMap),moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)]
-                cv2.setMouseCallback(sWindowName, alterScore, [AreaT1,AreaT2,gameScore,configMap])
+                cv2.setMouseCallback(ResGUIText.sWindowName, alterScore, [AreaT1,AreaT2,gameScore,configMap])
                
     
     # Load game data
