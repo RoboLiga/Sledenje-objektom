@@ -1,6 +1,5 @@
 """Provides starting configurations and resources"""
 #import json
-
 class ResGame:
     """Game configuration"""
     def __init__(self):
@@ -20,9 +19,8 @@ class ResGame:
         self.goodApple = 1
         self.badApple = -2
     #def toJSON(self):
-    #    return json.dumps(self, default=lambda o: o.__dict__, 
+    #    return json.dumps(self, default=lambda o: o.__dict__,
     #        sort_keys=False, indent=4)
-
 class ResObjects:
     """Stores Object configs"""
     ROBOT = 0
@@ -65,10 +63,10 @@ class ResGUIText:
                              'Mark Field Top Left Corner']
     fieldDefineGuideId = 0
     sFps = 'FPS: '
-    sTimeLeft='Time left: '
-    sScore=' Score: '
-    sHelp='HotKeys: '+ResKeys.loadKey+' - load game data | '+ResKeys.editMapKey+' - edit map | '+ResKeys.alterScoreKey+' - alter score | '+ResKeys.startGameKey+' - start game | '+ResKeys.quitKey+' - quit'
-    sWindowName='Tracker'
+    sTimeLeft = 'Time left: '
+    sScore = ' Score: '
+    sHelp = 'HotKeys: ' + ResKeys.loadKey + ' - load game data | ' + ResKeys.editMapKey + ' - edit map | ' + ResKeys.alterScoreKey + ' - alter score | ' + ResKeys.startGameKey + ' - start game | ' + ResKeys.quitKey + ' - quit'
+    sWindowName = 'Tracker'
     
 
 

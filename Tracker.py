@@ -80,7 +80,7 @@ while(ret and not quit):
         te = timer()
         fps = 1 / (te - ts)        
         u.drawFPS(frame_markers,fps)
-        ts=te
+        ts = te
         # Show frame
         cv2.imshow(ResGUIText.sWindowName,frame_markers)
 

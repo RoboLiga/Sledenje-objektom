@@ -5,8 +5,8 @@ class Score:
     def __init__(self):
         self.team1Apples = []
         self.team2Apples = []
-        self.team1bias=0
-        self.team2bias=0
+        self.team1bias = 0
+        self.team2bias = 0
 
     def getScore(self,team):
         ts = 0
@@ -16,14 +16,14 @@ class Score:
                     ts = ts + ResObjects.goodApple
                 if a in ResObjects.ApplesBadIds:
                     ts = ts + ResObjects.badApple
-            ts=ts+self.team1bias
+            ts = ts + self.team1bias
         if team == 2:
             for a in self.team2Apples:
                 if a in ResObjects.ApplesGoodIds:
                     ts = ts + ResObjects.goodApple
                 if a in ResObjects.ApplesBadIds:
                     ts = ts + ResObjects.badApple
-            ts=ts+self.team2bias
+            ts = ts + self.team2bias
         return ts
 
     def addApple(self,team,id):

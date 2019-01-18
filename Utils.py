@@ -137,7 +137,7 @@ def getClickPoint(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         if	len(param.fieldCorners) == 12:
             param.fieldCorners.clear()
-            ResGUIText.fieldDefineGuideId  = 0
+            ResGUIText.fieldDefineGuideId = 0
         param.fieldCorners.append([x, y])
         ResGUIText.fieldDefineGuideId +=1
 
@@ -297,29 +297,7 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
             cv2.line(frame_markers, (int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))), (int(round(objects[obj].position[0] + 20 * cos(objects[obj].direction))),int(round(objects[obj].position[1] + 20 * sin(objects[obj].direction)))), (255,0,196), 2)
         # Set font
         font = cv2.FONT_HERSHEY_SIMPLEX
-        
-        # Display time left and score
-        if gameStart:
-            #cv2.putText(frame_markers,'Game On',(10,56), font,
-            #1,(0,255,0),2,cv2.LINE_AA)
-            putTextCentered(frame_markers,ResGUIText.sTimeLeft + str(round(timeLeft)) +' '+ ResGUIText.sScore + str(gameScore.getScore(1)) + ' - ' + str(gameScore.getScore(2)),(configMap.imageWidth // 2,30), font, 1,(0,0,255),2,cv2.LINE_AA)
-        # Display info when in map edit mode
-        if fieldEditMode:
-            #cv2.putText(frame_markers,'Field edit mode On',(10,56), font,
-            #1,(0,255,0),2,cv2.LINE_AA)
-            putTextCentered(frame_markers,ResGUIText.sFieldDefineGuide[ResGUIText.fieldDefineGuideId],(configMap.imageWidth // 2,30), font, 1,(255,0,0),2,cv2.LINE_AA)   
-        
-        # Display info when in change score mode  
-        if changeScore:
-            try:
-               textX = (configMap.fieldCorners[5][0] + configMap.fieldCorners[7][0]) // 2
-               textY = (configMap.fieldCorners[5][1] + configMap.fieldCorners[7][1]) // 2
-               putTextCentered(frame_markers,str(gameScore.getScore(1)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
-               textX = (configMap.fieldCorners[8][0] + configMap.fieldCorners[10][0]) // 2
-               textY = (configMap.fieldCorners[8][1] + configMap.fieldCorners[10][1]) // 2
-               putTextCentered(frame_markers,str(gameScore.getScore(2)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
-            except: 
-                pass
+
         # Display map
         for p in configMap.fieldCorners:
             cv2.circle(frame_markers, (p[0],p[1]), 3, (0,255,255),3)
@@ -339,7 +317,31 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
             cv2.line(frame_markers, tuple(configMap.fieldCorners[10]), tuple(configMap.fieldCorners[11]), (0,255,255), 2)
             cv2.line(frame_markers, tuple(configMap.fieldCorners[11]), tuple(configMap.fieldCorners[8]), (0,255,255), 2)
         except:
-            pass
+            pass        
+
+        # Display time left and score
+        if gameStart:
+            #cv2.putText(frame_markers,'Game On',(10,56), font,
+            #1,(0,255,0),2,cv2.LINE_AA)
+            putTextCentered(frame_markers,ResGUIText.sTimeLeft + str(round(timeLeft)) + ' ' + ResGUIText.sScore + str(gameScore.getScore(1)) + ' - ' + str(gameScore.getScore(2)),(configMap.imageWidth // 2,30), font, 1,(0,0,255),2,cv2.LINE_AA)
+        # Display info when in map edit mode
+        if fieldEditMode:
+            #cv2.putText(frame_markers,'Field edit mode On',(10,56), font,
+            #1,(0,255,0),2,cv2.LINE_AA)
+            putTextCentered(frame_markers,ResGUIText.sFieldDefineGuide[ResGUIText.fieldDefineGuideId],(configMap.imageWidth // 2,30), font, 1,(255,0,0),2,cv2.LINE_AA)   
+        
+        # Display info when in change score mode
+        if changeScore:
+            try:
+               textX = (configMap.fieldCorners[5][0] + configMap.fieldCorners[7][0]) // 2
+               textY = (configMap.fieldCorners[5][1] + configMap.fieldCorners[7][1]) // 2
+               putTextCentered(frame_markers,str(gameScore.getScore(1)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
+               textX = (configMap.fieldCorners[8][0] + configMap.fieldCorners[10][0]) // 2
+               textY = (configMap.fieldCorners[8][1] + configMap.fieldCorners[10][1]) // 2
+               putTextCentered(frame_markers,str(gameScore.getScore(2)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
+            except: 
+                pass
+
         #Display help
         cv2.putText(frame_markers,ResGUIText.sHelp,(10,configMap.imageHeighth - 10), font, 0.5,(0,0,255),1,cv2.LINE_AA)
 
@@ -386,13 +388,13 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
             fieldEditMode = not fieldEditMode
             if fieldEditMode:
                 configMap.fieldCorners.clear()
-                ResGUIText.fieldDefineGuideId=0
+                ResGUIText.fieldDefineGuideId = 0
                 cv2.setMouseCallback(ResGUIText.sWindowName, getClickPoint,configMap)
             else:
                 cv2.setMouseCallback(ResGUIText.sWindowName, lambda *args : None)
     
     # Change score mode
-    elif keypressed == ord(ResKeys.alterScoreKey) and gameDataLoaded and len(configMap.fieldCorners)==12:
+    elif keypressed == ord(ResKeys.alterScoreKey) and gameDataLoaded and len(configMap.fieldCorners) == 12:
         changeScore = not changeScore
         if changeScore:
             AreaT1 = [moveOrigin(*tuple(configMap.fieldCorners[5]),configMap),moveOrigin(*tuple(configMap.fieldCorners[6]),configMap),moveOrigin(*tuple(configMap.fieldCorners[7]),configMap),moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)]
