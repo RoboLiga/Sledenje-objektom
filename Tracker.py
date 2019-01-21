@@ -72,7 +72,7 @@ while(ret and not quit):
             
 
         # Write game data to file
-        u.writeGameData(configMap, gameScore, gameStart, timeLeft, objects, fieldEditMode)
+        u.writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, fieldEditMode)
         
         # Draw GUI and objects
         frame_markers = aruco.drawDetectedMarkers(color.copy(), cornersTracked, ids)

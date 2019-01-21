@@ -5,9 +5,8 @@ class ResGame:
     def __init__(self):
         # Aruco Id for each team
         self.teams = {
-                    "Ekipa 1" :0,
-                    "Ekipa 2" :1,
-                    "Ekipa 3" :2
+                    0 :'Ekipa 1',
+                    1 :'Ekipa 2'
                 }
         self.currentGameTeams = {
                                 "Team1": 0,
