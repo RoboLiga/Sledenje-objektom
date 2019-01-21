@@ -11,7 +11,7 @@ from os import replace
 import ujson
 import pickle
 from ObjectTracker import ObjectTracker
-from Entity import Entity
+import Entity
 from Score import Score
 
 def correct(x, y, map):
@@ -238,46 +238,46 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     gLive = GameLiveData()    
     gLive.gameOn = gameStart     
     gLive.timeLeft = timeLeft
-    gLive.teamId['Team1']=gameData['currentGameTeams']['Team1']
-    gLive.teamId['Team2']=gameData['currentGameTeams']['Team2']
-    gLive.teamName['Team1']=gameData['teams'][str(gameData['currentGameTeams']['Team1'])]
-    gLive.teamId['Team2']=gameData['teams'][str(gameData['currentGameTeams']['Team2'])]
+    gLive.team1['id']=gameData['currentGameTeams']['Team1']
+    gLive.team2['id']=gameData['currentGameTeams']['Team2']
+    gLive.team1['name']=gameData['teams'][str(gameData['currentGameTeams']['Team1'])]
+    gLive.team2['name']=gameData['teams'][str(gameData['currentGameTeams']['Team2'])]
     # Fill map data
     if len(configMap.fieldCorners) == 12:
-        gLive.field["TopLeft"] = moveOrigin(*tuple(configMap.fieldCorners[0]),configMap)
-        gLive.field["TopRight"] = moveOrigin(*tuple(configMap.fieldCorners[1]),configMap)
-        gLive.field["BottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[2]),configMap)
-        gLive.field["BottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[3]),configMap)
+        gLive.field["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[0]),configMap)
+        gLive.field["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[1]),configMap)
+        gLive.field["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[2]),configMap)
+        gLive.field["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[3]),configMap)
         
-        gLive.baskets["Team1"]["TopLeft"] = moveOrigin(*tuple(configMap.fieldCorners[5]),configMap)
-        gLive.baskets["Team1"]["TopRight"] = moveOrigin(*tuple(configMap.fieldCorners[6]),configMap)
-        gLive.baskets["Team1"]["BottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[7]),configMap)
-        gLive.baskets["Team1"]["BottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)
+        gLive.baskets["team1"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[5]),configMap)
+        gLive.baskets["team1"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[6]),configMap)
+        gLive.baskets["team1"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[7]),configMap)
+        gLive.baskets["team1"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)
 
-        gLive.baskets["Team2"]["TopLeft"] = moveOrigin(*tuple(configMap.fieldCorners[8]),configMap)
-        gLive.baskets["Team2"]["TopRight"] = moveOrigin(*tuple(configMap.fieldCorners[9]),configMap)
-        gLive.baskets["Team2"]["BottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[10]),configMap)
-        gLive.baskets["Team2"]["BottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)
+        gLive.baskets["team2"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[8]),configMap)
+        gLive.baskets["team2"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[9]),configMap)
+        gLive.baskets["team2"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[10]),configMap)
+        gLive.baskets["team2"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)
     #Fill objects
     for obj in objects:
         if objects[obj].enabled == True:
             if objects[obj].type == ResObjects.ROBOT:
-                gLive.robots.append(Entity(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.robots.append(Entity.Robot(objects[obj].id,objects[obj].position,objects[obj].direction))
             if objects[obj].type == ResObjects.APPLE_GOOD:
-                gLive.apples.append(Entity(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
             if objects[obj].type == ResObjects.APPLE_BAD:
-                gLive.apples.append(Entity(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
         
     # Compute score
-    AreaT1 = [gLive.baskets["Team1"]["TopLeft"],gLive.baskets["Team1"]["TopRight"],gLive.baskets["Team1"]["BottomRight"],gLive.baskets["Team1"]["BottomLeft"]]
-    AreaT2 = [gLive.baskets["Team2"]["TopLeft"],gLive.baskets["Team2"]["TopRight"],gLive.baskets["Team2"]["BottomRight"],gLive.baskets["Team2"]["BottomLeft"]]
+    AreaT1 = [gLive.baskets["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]
+    AreaT2 = [gLive.baskets["team2"]["topLeft"],gLive.baskets["team2"]["topRight"],gLive.baskets["team2"]["bottomRight"],gLive.baskets["team2"]["bottomLeft"]]
     for a in gLive.apples:
         if checkIfObjectInArea([a.X,a.Y],AreaT1):
             gameScore.addApple(1,a.id)
         if checkIfObjectInArea([a.X,a.Y],AreaT2):
             gameScore.addApple(2,a.id)
-    gLive.score["Team1"] = gameScore.getScore(1)
-    gLive.score["Team2"] = gameScore.getScore(2)
+    gLive.team1["score"] = gameScore.getScore(1)
+    gLive.team2["score"] = gameScore.getScore(2)
     outputFile = ResFileNames.gameLiveDataTempFileName
     with open(str(outputFile),'w') as f:
         #f.write(gLive.toJSON())

@@ -4,37 +4,35 @@ class GameLiveData:
     """Holds data to be sent to robots"""
     def __init__(self):
         self.gameOn = False
-        self.teamId = {
-                    'Team1':0,
-                    'Team2':1
-                  }
-
-        self.teamName = {
-                    'Team1':'Team1',
-                    'Team2':'Team1'
-                  }
-        self.score = {
-                 "Team1": 0,
-                 "Team2": 0
-                }
         self.timeLeft = 0
+        self.team1 = {
+                "id" : 0,
+                "name" : "team1",
+                "score" : 0        
+            }
+        self.team2 = {
+                "id" : 1,
+                "name" : "team2",
+                "score" : 0        
+            }
+        
         self.field = {
-                 "TopLeft" : [0,0],
-                 "TopRight" : [0,0],
-                 "BottomLeft": [0,0],
-                 "BottomRight": [0,0]
+                 "topLeft" : [0,0],
+                 "topRight" : [0,0],
+                 "bottomLeft": [0,0],
+                 "bottomRight": [0,0]
                 }
-        self.baskets = { "Team1" : {
-                               "TopLeft" : [0,0],
-                               "TopRight" : [0,0],
-                               "BottomLeft": [0,0],
-                               "BottomRight": [0,0]
+        self.baskets = { "team1" : {
+                               "topLeft" : [0,0],
+                               "topRight" : [0,0],
+                               "bottomLeft": [0,0],
+                               "bottomRight": [0,0]
                               },
-                    "Team2" : {
-                               "TopLeft" : [0,0],
-                               "TopRight" : [0,0],
-                               "BottomLeft": [0,0],
-                               "BottomRight": [0,0]
+                    "team2" : {
+                               "topLeft" : [0,0],
+                               "topRight" : [0,0],
+                               "bottomLeft": [0,0],
+                               "bottomRight": [0,0]
                               }
                   }
         self.apples = []
