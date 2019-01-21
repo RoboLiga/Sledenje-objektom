@@ -4,10 +4,15 @@ class GameLiveData:
     """Holds data to be sent to robots"""
     def __init__(self):
         self.gameOn = False
-        self.teamId['Team1']=0
-        self.teamId['Team2']=1
-        self.teamName['Team1']='Team1'
-        self.teamName['Team2']='Team2'
+        self.teamId = {
+                    'Team1':0,
+                    'Team2':1
+                  }
+
+        self.teamName = {
+                    'Team1':'Team1',
+                    'Team2':'Team1'
+                  }
         self.score = {
                  "Team1": 0,
                  "Team2": 0

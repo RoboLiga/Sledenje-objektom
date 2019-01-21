@@ -5,12 +5,12 @@ class ResGame:
     def __init__(self):
         # Aruco Id for each team
         self.teams = {
-                    0 :'Ekipa 1',
-                    1 :'Ekipa 2'
+                    '0' :'Ekipa 1',
+                    '1' :'Ekipa 2'
                 }
         self.currentGameTeams = {
-                                "Team1": 0,
-                                "Team2": 1
+                                'Team1': 0,
+                                'Team2': 1
                        }
         # Game Time in seconds
         self.gameTime = 120

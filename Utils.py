@@ -238,10 +238,10 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     gLive = GameLiveData()    
     gLive.gameOn = gameStart     
     gLive.timeLeft = timeLeft
-    gLive.teamId['Team1']=gameData.currentGameTeams['Team1']
-    gLive.teamId['Team2']=gameData.currentGameTeams['Team2']
-    gLive.teamName['Team1']=gameData.teams[gameData.currentGameTeams['Team1']]
-    gLive.teamId['Team2']=gameData.teams[gameData.currentGameTeams['Team2']]
+    gLive.teamId['Team1']=gameData['currentGameTeams']['Team1']
+    gLive.teamId['Team2']=gameData['currentGameTeams']['Team2']
+    gLive.teamName['Team1']=gameData['teams'][str(gameData['currentGameTeams']['Team1'])]
+    gLive.teamId['Team2']=gameData['teams'][str(gameData['currentGameTeams']['Team2'])]
     # Fill map data
     if len(configMap.fieldCorners) == 12:
         gLive.field["TopLeft"] = moveOrigin(*tuple(configMap.fieldCorners[0]),configMap)
