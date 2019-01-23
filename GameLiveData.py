@@ -1,5 +1,4 @@
 """Provides GameLiveData class, which is communicated to robots"""
-#import json
 class GameLiveData:
     """Holds data to be sent to robots"""
     def __init__(self):

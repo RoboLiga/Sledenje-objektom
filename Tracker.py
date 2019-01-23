@@ -7,6 +7,7 @@ import sys
 import cv2
 import cv2.aruco as aruco
 import Utils as u
+from VideoStreamer import VideoStreamer
 from Resources import ResFileNames, ResGUIText
 
 __author__ = "Laboratory for adaptive systems and parallel processing"
@@ -19,7 +20,12 @@ __email__ = "davor.sluga@fri.uni-lj.si"
 __status__ = "Production"
 
 # Load video
-cap = cv2.VideoCapture(ResFileNames.videoSource)
+cap = VideoStreamer()
+cap.start(ResFileNames.videoSource)
+#a=cap.get(cv2.CAP_PROP_BUFFERSIZE) # CV_CAP_PROP_BUFFERSIZE
+#cap.set(cv2.CAP_PROP_BUFFERSIZE, 1);
+#print(str(a))
+
 
 # Setting up aruco tags
 aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_100)
@@ -38,17 +44,29 @@ u.initState()
 #    ujson.dump(gameData,f)
 
 # Set window name
-cv2.namedWindow(ResGUIText.sWindowName)
+cv2.namedWindow(ResGUIText.sWindowName,cv2.WINDOW_NORMAL)
+#cv2.resizeWindow(ResGUIText.sWindowName, 2000,1000)
+
+
 # Start the FPS timer
 ts = timer()
-while(ret and not quit):
+while(not quit):
     
-    
-    
-    # Capture/Load frame-by-frame
-    ret, frame = cap.read()
+    # Load frame-by-frame
+    #ret = False
+    #mutex.acquire()
+    #try:
+        #ret, frame = cap.retrieve(=
 
-    if ret: 
+    #cap.set(cv2.CAP_PROP_POS_FRAMES,fi-1)
+   # ret, frame = cap.read()
+    if cap.running:
+        frame = cap.read()    
+    #finally:
+    #    mutex.release()
+    
+
+    #if ret: 
         # Convert to grayscale for Aruco detection
         gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         frameCounter = frameCounter + 1  
@@ -87,18 +105,17 @@ while(ret and not quit):
 
         # Process keys
         (gameStart, gameData, gameScore, configMap, timeStart, gameDataLoaded, fieldEditMode, changeScore, quit) = \
-        u.processKeys(gameStart, gameData, gameScore, configMap, timeStart, gameDataLoaded, fieldEditMode, changeScore, quit)
+        u.processKeys(gameStart, gameData, objects, gameScore, configMap, timeStart, gameDataLoaded, fieldEditMode, changeScore, quit)
         
         #Compute and display FPS
         te = timer()
         fps = 1 / (te - ts)        
         u.drawFPS(frame_markers,fps)
     else:
-       print('No video feed!')
-       cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
        break
   
 # When everything done, release the capture
-cap.release()
+#t.join()
+#cap.stop()
 cv2.destroyAllWindows()
 sys.exit(0)

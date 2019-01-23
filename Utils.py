@@ -14,6 +14,9 @@ from ObjectTracker import ObjectTracker
 import Entity
 from Score import Score
 
+
+        
+
 def correct(x, y, map):
     """Corrects the coordinates.
     Scale0 and scale1 define scaling constants. The scaling factor is a linear function of distance from center.
@@ -39,22 +42,53 @@ def correct(x, y, map):
     # Correct coordinates and return
     return (int(round((x - offset_x) * (scale0 + scale1 * dist) + offset_x)),
         int(round((y - offset_y) * (scale0 + scale1 * dist) + offset_y)))
+    #return(x,y)
 
-def moveOrigin(x, y, map):
-    """Translates coordinate to new coordinate system.
+def reverseCorrect(x, y, map):
+    """Reverses the correction of the coordinates.
     Scale0 and scale1 define scaling constants. The scaling factor is a linear function of distance from center.
     Args:
         x (int): x coordinate
         y (int): y coordinate
         map (ResMap) : map object
     Returns:
+        Tuple[int, int]: Reverted coordinates
+    """
+
+    # Scaling factors
+    scale0 = ResCamera.scale0
+    scale1 = ResCamera.scale1
+
+    # Convert screen coordinates to 0-based coordinates
+    offset_x = map.imageWidth / 2
+    offset_y = map.imageHeighth / 2
+
+    # Calculate distance from center
+    dist = sqrt((x - offset_x) ** 2 + (y - offset_y) ** 2)
+
+    # Find the distance before correction
+    distOld=(-scale0+sqrt(scale0**2+4*dist*scale1))/(2*scale1)
+
+    # Revert coordinates and return
+    return (int(round((x - offset_x) / (scale0 + scale1 * distOld) + offset_x)),
+        int(round((y - offset_y) / (scale0 + scale1 * distOld) + offset_y)))
+
+def moveOrigin(x, y, map):
+    """Translates coordinate to new coordinate system and applies scaling to get units in ~mm.
+    Args:
+        x (int): x coordinate
+        y (int): y coordinateq
+        map (ResMap) : map object
+    Returns:
         Tuple[int, int]: Corrected coordinates
     """
     # Translate coordinates if new origin exists (top left corner of map)
-    if map.fieldCorners:
-        x = x - map.fieldCorners[0][0]
-        y = y - map.fieldCorners[0][1]
-    return  (x,y) 
+    if len(map.fieldCorners)==12:
+        sPoint=np.array([np.array([[x,y]],np.float32)])
+        dPoint=cv2.perspectiveTransform(sPoint, map.M)
+        x=dPoint[0][0][0]
+        y=dPoint[0][0][1]
+    return  (int(round(x)), int(round(y))) 
 
 def getMassCenter(corners, ids, map):
     """Computes mass centers of objects in the frame.
@@ -89,7 +123,7 @@ def getMassCenter(corners, ids, map):
     return massCenters
 
 def initState():
-    """Initializes Tracker state variables
+    """Initializes Tracker global state variables
     Args:
         None
     Returns:
@@ -125,7 +159,7 @@ def checkIfObjectInArea(objectPos, area):
     """Checks if object in area of map.
     Args:
         objectPos (list): object x and y coordinates
-        area(list of tuple): corners (x and y) of polygon definig the area
+        area (list of tuple): corners (x and y) of polygon definig the area
     Returns:
         bool: True if object in area
     """
@@ -134,12 +168,28 @@ def checkIfObjectInArea(objectPos, area):
     return polygon.contains(point)
 
 def getClickPoint(event, x, y, flags, param):
+    """Callback function used in handling click events when defining the map.
+    Args:
+        event (int): type of event
+        x (int): event position x
+        y (int): event position y
+        flags: event flags
+        param: 
+    Returns:
+        bool: True if object in area
+    """
+    (field, objects)=param
     if event == cv2.EVENT_LBUTTONDOWN:
-        if	len(param.fieldCorners) == 12:
-            param.fieldCorners.clear()
+        if	len(field.fieldCorners) == 12:
+            field.fieldCorners.clear()
             ResGUIText.fieldDefineGuideId = 0
-        param.fieldCorners.append([x, y])
+        field.fieldCorners.append([x, y])
         ResGUIText.fieldDefineGuideId +=1
+        if len(field.fieldCorners) == 12:
+            src=np.array([field.fieldCorners[0],field.fieldCorners[1],field.fieldCorners[2],field.fieldCorners[3]],np.float32)
+            dst=np.array(field.fieldCornersVirtual,np.float32)
+            field.M=cv2.getPerspectiveTransform(src, dst)
+            objects.clear()
 
 def alterScore(event, x, y, flags, param):
     point = Point(moveOrigin(x,y,param[3]))
@@ -295,12 +345,31 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
 
 def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore):
         
-        # Display object centers and direction
-        for obj in objects:
-            cv2.circle(frame_markers, (int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))), 2, (0,255,255),2) 
-            cv2.line(frame_markers, (int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))), (int(round(objects[obj].position[0] + 20 * cos(objects[obj].direction))),int(round(objects[obj].position[1] + 20 * sin(objects[obj].direction)))), (255,0,196), 2)
         # Set font
-        font = cv2.FONT_HERSHEY_SIMPLEX
+        font = cv2.FONT_HERSHEY_SIMPLEX       
+
+        # Display object centers and direction
+        coords=[]
+        for obj in objects:
+            x=objects[obj].position[0]
+            y=objects[obj].position[1]
+            if len(configMap.fieldCorners)==12:
+                sPoint=np.array([np.array([[x,y]],np.float32)])
+                dPoint=cv2.perspectiveTransform(sPoint, np.matrix(configMap.M).I)
+                x=dPoint[0][0][0]
+                y=dPoint[0][0][1]
+            (x,y)=reverseCorrect(x,y,configMap)
+            #cv2.circle(frame_markers, (int(round(x)),int(round(y))), 1, (0,0,255),1) 
+            cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + 30 * sin(objects[obj].direction)))), (0,0,255), 2)
+        #DEBUG    
+        #    coords.append([int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))])           
+ 
+        #if coords:
+        #    print('('+str(coords[0])+')', end='')    
+        #    for i in range(1,len(coords)):
+        #        distance = int(round(sqrt( ((coords[i-1][0]-coords[i][0])**2)+((coords[i-1][1]-coords[i][1])**2) )))
+        #        print('-'+str(distance)+'-'+'('+str(coords[i])+')', end='')
+        #    print('')
 
         # Display map
         for p in configMap.fieldCorners:
@@ -354,7 +423,8 @@ def drawFPS(frame_markers,fps):
         # Display FPS
         cv2.putText(frame_markers,ResGUIText.sFps + str(int(fps)),(10,30), font, 1,(0,255,255),2,cv2.LINE_AA)
 
-def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLoaded, fieldEditMode, changeScore, quit):
+
+def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, gameDataLoaded, fieldEditMode, changeScore, quit):
     
     # Detect key press
     keypressed = cv2.waitKey(1) & 0xFF
@@ -383,6 +453,7 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
                 print('Game data file could not be loaded!')
             # Try to load map if exists
             try:
+                objects.clear()
                 with open(ResFileNames.mapConfigFileName, 'rb') as map:
                     configMap = pickle.load(map)
             except Exception as e: 
@@ -392,8 +463,9 @@ def processKeys(gameStart, gameData, gameScore, configMap, startTime, gameDataLo
             fieldEditMode = not fieldEditMode
             if fieldEditMode:
                 configMap.fieldCorners.clear()
+                objects.clear()
                 ResGUIText.fieldDefineGuideId = 0
-                cv2.setMouseCallback(ResGUIText.sWindowName, getClickPoint,configMap)
+                cv2.setMouseCallback(ResGUIText.sWindowName, getClickPoint,(configMap,objects))
             else:
                 cv2.setMouseCallback(ResGUIText.sWindowName, lambda *args : None)
     

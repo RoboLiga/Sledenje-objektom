@@ -36,7 +36,8 @@ class ResFileNames:
     gameLiveDataFileName = "../nginx/html/game.json"
     gameLiveDataTempFileName = "gameLiveTemp.json"
     mapConfigFileName = "mapConfig"
-    videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
+    #videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
+    videoSource="http://193.2.72.149/mjpg/video.mjpg"
 
 class ResKeys:
     loadKey = 'l'
@@ -75,6 +76,8 @@ class ResMap:
         self.fieldCorners = []
         self.imageWidth = 0
         self.imageHeighth = 0
+        self.fieldCornersVirtual=[[0,0], [3555,0],[3555,2055],[0,2055]]
+        self.M = []
     
 
 class ResKalmanFilter:
@@ -121,7 +124,7 @@ class ResCamera:
     k3 = -0.1436
     p1 = 6.6668e-4
     p2 = -0.0025
-    fx = 1.509369848235880e+03
+    fx = 1445#1.509369848235880e+03#
     fy = 1.509243126646947e+03
     cx = 9.678725207348843e+02
     cy = 5.356599023732050e+02
