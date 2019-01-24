@@ -260,17 +260,18 @@ def track(pointsTracked,objects,frame_counter):
                    objects[id] = ObjectTracker(ResObjects.APPLE_BAD,id,position,(0,0,0,0))
                    objects[id].last_seen = frame_counter
                    
-        #Disable object tracking if not seen detected for a long time
+    #Disable object tracking if not  detected for a long time
     for k, v in list(objects.items()): 
         if (frame_counter - v.last_seen) > ResObjects.ObjectTimeout:
-            objects[k].enabled = False      
+            del objects[k]
+            #objects[k].enabled = False      
         
     #Track undetected objects
     for obj in objects:
         if objects[obj].detected == False:
             objects[obj].lost_frames = objects[obj].lost_frames + 1 
-            if objects[obj].enabled == True:
-                objects[obj].updateState([])
+            #if objects[obj].enabled == True:
+            objects[obj].updateState([])
         objects[obj].detected = False 
 
 def checkTimeLeft(gameStart, timeLeft, startTime, totalTime):
@@ -312,11 +313,11 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     for obj in objects:
         if objects[obj].enabled == True:
             if objects[obj].type == ResObjects.ROBOT:
-                gLive.robots.append(Entity.Robot(objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.robots.append(Entity.Robot(objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
             if objects[obj].type == ResObjects.APPLE_GOOD:
-                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
             if objects[obj].type == ResObjects.APPLE_BAD:
-                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position,objects[obj].direction))
+                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
         
     # Compute score
     AreaT1 = [gLive.baskets["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]

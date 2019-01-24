@@ -22,9 +22,6 @@ __status__ = "Production"
 # Load video
 cap = VideoStreamer()
 cap.start(ResFileNames.videoSource)
-#a=cap.get(cv2.CAP_PROP_BUFFERSIZE) # CV_CAP_PROP_BUFFERSIZE
-#cap.set(cv2.CAP_PROP_BUFFERSIZE, 1);
-#print(str(a))
 
 
 # Setting up aruco tags
@@ -43,7 +40,7 @@ u.initState()
 #f:
 #    ujson.dump(gameData,f)
 
-# Set window name
+# Create window
 cv2.namedWindow(ResGUIText.sWindowName,cv2.WINDOW_NORMAL)
 #cv2.resizeWindow(ResGUIText.sWindowName, 2000,1000)
 
@@ -53,19 +50,11 @@ ts = timer()
 while(not quit):
     
     # Load frame-by-frame
-    #ret = False
-    #mutex.acquire()
-    #try:
-        #ret, frame = cap.retrieve(=
 
-    #cap.set(cv2.CAP_PROP_POS_FRAMES,fi-1)
    # ret, frame = cap.read()
     if cap.running:
         frame = cap.read()    
-    #finally:
-    #    mutex.release()
     
-
     #if ret: 
         # Convert to grayscale for Aruco detection
         gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
