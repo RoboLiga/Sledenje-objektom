@@ -349,32 +349,6 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
         # Set font
         font = cv2.FONT_HERSHEY_SIMPLEX       
 
-        # Display object centers and direction
-        coords=[]
-        for obj in objects:
-            x=objects[obj].position[0]
-            y=objects[obj].position[1]
-            if len(configMap.fieldCorners)==12:
-                sPoint=np.array([np.array([[x,y]],np.float32)])
-                dPoint=cv2.perspectiveTransform(sPoint, np.matrix(configMap.M).I)
-                x=dPoint[0][0][0]
-                y=dPoint[0][0][1]
-            x_shadow = x
-            y_shadow = y
-            (x,y)=reverseCorrect(x,y,configMap)
-            
-            cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + 30 * sin(objects[obj].direction)))), (0,0,255), 2)
-            cv2.circle(frame_markers, (int(round(x_shadow)),int(round(y_shadow))), 2, (204,0,102),2)
-        #DEBUG    
-        #    coords.append([int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))])           
- 
-        #if coords:
-        #    print('('+str(coords[0])+')', end='')    
-        #    for i in range(1,len(coords)):
-        #        distance = int(round(sqrt( ((coords[i-1][0]-coords[i][0])**2)+((coords[i-1][1]-coords[i][1])**2) )))
-        #        print('-'+str(distance)+'-'+'('+str(coords[i])+')', end='')
-        #    print('')
-
         # Display map
         for p in configMap.fieldCorners:
             cv2.circle(frame_markers, (p[0],p[1]), 3, (0,255,255),3)
@@ -394,7 +368,33 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
             cv2.line(frame_markers, tuple(configMap.fieldCorners[10]), tuple(configMap.fieldCorners[11]), (0,255,255), 2)
             cv2.line(frame_markers, tuple(configMap.fieldCorners[11]), tuple(configMap.fieldCorners[8]), (0,255,255), 2)
         except:
-            pass        
+            pass  
+
+        # Display object centers and direction
+        coords=[]
+        for obj in objects:
+            x=objects[obj].position[0]
+            y=objects[obj].position[1]
+            if len(configMap.fieldCorners)==12:
+                sPoint=np.array([np.array([[x,y]],np.float32)])
+                dPoint=cv2.perspectiveTransform(sPoint, np.matrix(configMap.M).I)
+                x=dPoint[0][0][0]
+                y=dPoint[0][0][1]
+            x_shadow = x
+            y_shadow = y
+            (x,y)=reverseCorrect(x,y,configMap)
+            
+            cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + 30 * sin(objects[obj].direction)))), (0,0,255), 2)
+            cv2.circle(frame_markers, (int(round(x_shadow)),int(round(y_shadow))), 2, (0,0,255),2)
+        #DEBUG    
+        #    coords.append([int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))])           
+ 
+        #if coords:
+        #    print('('+str(coords[0])+')', end='')    
+        #    for i in range(1,len(coords)):
+        #        distance = int(round(sqrt( ((coords[i-1][0]-coords[i][0])**2)+((coords[i-1][1]-coords[i][1])**2) )))
+        #        print('-'+str(distance)+'-'+'('+str(coords[i])+')', end='')
+        #    print('')      
 
         # Display time left and score
         if gameStart:

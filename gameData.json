@@ -1,13 +1,13 @@
 {
     "teams": {
-        "0": "Team1",
+        "10": "Nejc",
         "1": "Team2"
     },
     "currentGameTeams": {
-        "Team1": 0,
+        "Team1": 10,
         "Team2": 1
     },
-    "gameTime": 10,
+    "gameTime": 100,
     "goodApple": 1,
     "badApple": -2
 }
