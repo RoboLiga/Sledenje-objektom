@@ -76,7 +76,7 @@ class ResMap:
         self.fieldCorners = []
         self.imageWidth = 0
         self.imageHeighth = 0
-        self.fieldCornersVirtual=[[0,0], [3555,0],[3555,2055],[0,2055]]
+        self.fieldCornersVirtual=[[0,2055], [3555,2055],[3555,0],[0,0]]
         self.M = []
     
 
