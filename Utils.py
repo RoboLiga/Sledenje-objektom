@@ -372,10 +372,12 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
 
         # Display object centers and direction
         coords=[]
+        orientation=1
         for obj in objects:
             x=objects[obj].position[0]
             y=objects[obj].position[1]
             if len(configMap.fieldCorners)==12:
+                orientation=-1
                 sPoint=np.array([np.array([[x,y]],np.float32)])
                 dPoint=cv2.perspectiveTransform(sPoint, np.matrix(configMap.M).I)
                 x=dPoint[0][0][0]
@@ -384,7 +386,7 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
             y_shadow = y
             (x,y)=reverseCorrect(x,y,configMap)
             
-            cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + 30 * sin(objects[obj].direction)))), (0,0,255), 2)
+            cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + orientation * 30 * sin(objects[obj].direction)))), (0,0,255), 2)
             cv2.circle(frame_markers, (int(round(x_shadow)),int(round(y_shadow))), 2, (0,0,255),2)
         #DEBUG    
         #    coords.append([int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))])           
@@ -459,7 +461,9 @@ def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, g
             try:
                 objects.clear()
                 with open(ResFileNames.mapConfigFileName, 'rb') as map:
+                    virtualCorners=list(ResMap().fieldCornersVirtual)
                     configMap = pickle.load(map)
+                    configMap.fieldCornersVirtual=virtualCorners
             except Exception as e: 
                 print(e)
     # Edit Map mode

@@ -78,6 +78,7 @@ class ResMap:
         self.imageHeighth = 0
         self.fieldCornersVirtual=[[0,2055], [3555,2055],[3555,0],[0,0]]
         self.M = []
+        
     
 
 class ResKalmanFilter:
