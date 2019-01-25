@@ -359,9 +359,12 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
                 dPoint=cv2.perspectiveTransform(sPoint, np.matrix(configMap.M).I)
                 x=dPoint[0][0][0]
                 y=dPoint[0][0][1]
+            x_shadow = x
+            y_shadow = y
             (x,y)=reverseCorrect(x,y,configMap)
-            #cv2.circle(frame_markers, (int(round(x)),int(round(y))), 1, (0,0,255),1) 
+            
             cv2.arrowedLine(frame_markers, (int(round(x)),int(round(y))), (int(round(x + 30 * cos(objects[obj].direction))),int(round(y + 30 * sin(objects[obj].direction)))), (0,0,255), 2)
+            cv2.circle(frame_markers, (int(round(x_shadow)),int(round(y_shadow))), 2, (204,0,102),2)
         #DEBUG    
         #    coords.append([int(round(objects[obj].position[0])),int(round(objects[obj].position[1]))])           
  
