@@ -306,15 +306,15 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
         gLive.field["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[2]),configMap)
         gLive.field["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[3]),configMap)
         
-        gLive.baskets["team1"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[5]),configMap)
-        gLive.baskets["team1"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[6]),configMap)
-        gLive.baskets["team1"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[7]),configMap)
-        gLive.baskets["team1"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)
+        gLive.field["baskets"]["team1"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[5]),configMap)
+        gLive.field["baskets"]["team1"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[6]),configMap)
+        gLive.field["baskets"]["team1"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[7]),configMap)
+        gLive.field["baskets"]["team1"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[4]),configMap)
 
-        gLive.baskets["team2"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[8]),configMap)
-        gLive.baskets["team2"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[9]),configMap)
-        gLive.baskets["team2"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[10]),configMap)
-        gLive.baskets["team2"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)
+        gLive.field["baskets"]["team2"]["topLeft"] = moveOrigin(*tuple(configMap.fieldCorners[8]),configMap)
+        gLive.field["baskets"]["team2"]["topRight"] = moveOrigin(*tuple(configMap.fieldCorners[9]),configMap)
+        gLive.field["baskets"]["team2"]["bottomRight"] = moveOrigin(*tuple(configMap.fieldCorners[10]),configMap)
+        gLive.field["baskets"]["team2"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)
     #Fill objects
     for obj in objects:
         if objects[obj].enabled == True:
@@ -326,8 +326,8 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
                 gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
         
     # Compute score
-    AreaT1 = [gLive.baskets["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]
-    AreaT2 = [gLive.baskets["team2"]["topLeft"],gLive.baskets["team2"]["topRight"],gLive.baskets["team2"]["bottomRight"],gLive.baskets["team2"]["bottomLeft"]]
+    AreaT1 = [gLive.field["baskets"]["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]
+    AreaT2 = [gLive.field["baskets"]["team2"]["topLeft"],gLive.baskets["team2"]["topRight"],gLive.baskets["team2"]["bottomRight"],gLive.baskets["team2"]["bottomLeft"]]
     for a in gLive.apples:
         if a.type=='appleBad':
                 gameScore.removeApple(1,a.id)

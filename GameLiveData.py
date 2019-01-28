@@ -19,9 +19,8 @@ class GameLiveData:
                  "topLeft" : [0,0],
                  "topRight" : [0,0],
                  "bottomLeft": [0,0],
-                 "bottomRight": [0,0]
-                }
-        self.baskets = { "team1" : {
+                 "bottomRight": [0,0],
+                 "baskets": {  "team1" : {
                                "topLeft" : [0,0],
                                "topRight" : [0,0],
                                "bottomLeft": [0,0],
@@ -34,6 +33,7 @@ class GameLiveData:
                                "bottomRight": [0,0]
                               }
                   }
+                }
         self.apples = []
         self.robots = []
     #def toJSON(self):
