@@ -323,6 +323,9 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     AreaT1 = [gLive.baskets["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]
     AreaT2 = [gLive.baskets["team2"]["topLeft"],gLive.baskets["team2"]["topRight"],gLive.baskets["team2"]["bottomRight"],gLive.baskets["team2"]["bottomLeft"]]
     for a in gLive.apples:
+        if a.type=='appleBad':
+                gameScore.removeApple(1,a.id)
+                gameScore.removeApple(2,a.id)
         if checkIfObjectInArea([a.X,a.Y],AreaT1):
             gameScore.addApple(1,a.id)
         if checkIfObjectInArea([a.X,a.Y],AreaT2):
