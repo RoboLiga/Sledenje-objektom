@@ -1,7 +1,8 @@
 {
     "teams": {
         "10": "Nejc",
-        "1": "Team2"
+        "1": "Team2",
+		"40": "Team3"
     },
     "currentGameTeams": {
         "Team1": 10,

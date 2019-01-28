@@ -90,6 +90,7 @@ def moveOrigin(x, y, map):
         y=dPoint[0][0][1]
     return  (int(round(x)), int(round(y))) 
 
+
 def getMassCenter(corners, ids, map):
     """Computes mass centers of objects in the frame.
     Args:
@@ -239,6 +240,11 @@ def putTextCentered(img,text,pos,font,fontScale,color,thickness=None,lineType=No
     textX = (pos[0] - textsize[0] // 2)
     cv2.putText(img,text,(textX,pos[1]), font, fontScale,color,thickness,lineType)
 
+def isValidPos(pos):
+    if ResObjects.PosLimitX[0]<=pos[0]<=ResObjects.PosLimitX[1] and ResObjects.PosLimitY[0]<=pos[1]<=ResObjects.PosLimitY[1]:
+        return True
+    return False
+
 def track(pointsTracked,objects,frame_counter):
     for ct in pointsTracked:
             id = ct[0]
@@ -262,7 +268,7 @@ def track(pointsTracked,objects,frame_counter):
                    
     #Disable object tracking if not  detected for a long time
     for k, v in list(objects.items()): 
-        if (frame_counter - v.last_seen) > ResObjects.ObjectTimeout:
+        if ((frame_counter - v.last_seen) > ResObjects.ObjectTimeout) or not isValidPos(v.position[0:2]):
             del objects[k]
             #objects[k].enabled = False      
         
@@ -326,9 +332,9 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
         if a.type=='appleBad':
                 gameScore.removeApple(1,a.id)
                 gameScore.removeApple(2,a.id)
-        if checkIfObjectInArea([a.X,a.Y],AreaT1):
+        if checkIfObjectInArea(a.position[0:2],AreaT1):
             gameScore.addApple(1,a.id)
-        if checkIfObjectInArea([a.X,a.Y],AreaT2):
+        if checkIfObjectInArea(a.position[0:2],AreaT2):
             gameScore.addApple(2,a.id)
     gLive.team1["score"] = gameScore.getScore(1)
     gLive.team2["score"] = gameScore.getScore(2)

@@ -25,10 +25,12 @@ class ResObjects:
     ROBOT = 0
     APPLE_GOOD = 1
     APPLE_BAD = 2
-    RobotIds = {6,10,25,22,43}
-    ApplesGoodIds = {0}
-    ApplesBadIds = {0}
-    ObjectTimeout = 100
+    RobotIds = {40,30,25,22,43}
+    ApplesGoodIds = {36,42}
+    ApplesBadIds = {27}
+    ObjectTimeout = 50
+    PosLimitX = [-50,3600]
+    PosLimitY = [-50,2100]
 
 class ResFileNames:
     """Stores file names for json data"""
