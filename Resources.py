@@ -25,9 +25,10 @@ class ResObjects:
     ROBOT = 0
     APPLE_GOOD = 1
     APPLE_BAD = 2
-    RobotIds = {40,30,25,22,43}
-    ApplesGoodIds = {36,42}
-    ApplesBadIds = {27}
+    RobotIds = {40, 0, 5, 12, 14, 18, 19, 25, 32, 33, 35, 39, 41, 44}
+    #40 je na izposoji pri ApplesGoodIds in je treba z njim nadomestiti 88
+    ApplesGoodIds = {9, 22, 27, 29, 36, 88, 43, 47}
+    ApplesBadIds = {10, 24, 30, 42}
     ObjectTimeout = 50
     PosLimitX = [-50,3600]
     PosLimitY = [-50,2100]
