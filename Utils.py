@@ -326,8 +326,8 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
                 gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
         
     # Compute score
-    AreaT1 = [gLive.field["baskets"]["team1"]["topLeft"],gLive.baskets["team1"]["topRight"],gLive.baskets["team1"]["bottomRight"],gLive.baskets["team1"]["bottomLeft"]]
-    AreaT2 = [gLive.field["baskets"]["team2"]["topLeft"],gLive.baskets["team2"]["topRight"],gLive.baskets["team2"]["bottomRight"],gLive.baskets["team2"]["bottomLeft"]]
+    AreaT1 = [gLive.field["baskets"]["team1"]["topLeft"],gLive.field["baskets"]["team1"]["topRight"],gLive.field["baskets"]["team1"]["bottomRight"],gLive.field["baskets"]["team1"]["bottomLeft"]]
+    AreaT2 = [gLive.field["baskets"]["team2"]["topLeft"],gLive.field["baskets"]["team2"]["topRight"],gLive.field["baskets"]["team2"]["bottomRight"],gLive.field["baskets"]["team2"]["bottomLeft"]]
     for a in gLive.apples:
         if a.type=='appleBad':
                 gameScore.removeApple(1,a.id)
