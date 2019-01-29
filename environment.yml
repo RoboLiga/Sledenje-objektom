@@ -1,0 +1,7 @@
+name: tracker
+dependencies:
+  - python=3.6
+  - shapely
+  - numpy
+  - ujson
+  - opencv
