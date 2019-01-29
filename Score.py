@@ -8,21 +8,21 @@ class Score:
         self.team1bias = 0
         self.team2bias = 0
 
-    def getScore(self, team):
+    def getScore(self, team, gameData):
         ts = 0
         if team == 1:
             for a in self.team1Apples:
                 if a in ResObjects.ApplesGoodIds:
-                    ts = ts + ResObjects.goodApple
+                    ts = ts + gameData["goodApple"]
                 if a in ResObjects.ApplesBadIds:
-                    ts = ts + ResObjects.badApple
+                    ts = ts + gameData["badApple"]
             ts = ts + self.team1bias
         if team == 2:
             for a in self.team2Apples:
                 if a in ResObjects.ApplesGoodIds:
-                    ts = ts + ResObjects.goodApple
+                    ts = ts + gameData["goodApple"]
                 if a in ResObjects.ApplesBadIds:
-                    ts = ts + ResObjects.badApple
+                    ts = ts + gameData["badApple"]
             ts = ts + self.team2bias
         return ts
 

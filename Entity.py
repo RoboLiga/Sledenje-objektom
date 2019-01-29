@@ -1,5 +1,6 @@
 """Provides Entity class which describes an object on the map"""
 from math import pi
+from Resources import ResObjects
 class Robot:
     """Holds data of an robot in the field"""
     def __init__(self,id,position,direction):    
@@ -12,10 +13,10 @@ class Apple:
     def __init__(self,type,id,position,direction):    
         self.position = list(map(int,position))
         self.id = int(id)
-        if type == 1:
-            self.type = "appleBad"
-        elif type == 2:
+        if type == ResObjects.APPLE_GOOD:
             self.type = "appleGood"
+        elif type == ResObjects.APPLE_BAD:
+            self.type = "appleBad"
         else:
             self.type = "unknown"
 
