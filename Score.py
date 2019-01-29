@@ -13,16 +13,16 @@ class Score:
         if team == 1:
             for a in self.team1Apples:
                 if a in ResObjects.ApplesGoodIds:
-                    ts = ts + gameData.goodApple
+                    ts = ts + gameData["goodApple"]
                 if a in ResObjects.ApplesBadIds:
-                    ts = ts + gameData.badApple
+                    ts = ts + gameData["badApple"]
             ts = ts + self.team1bias
         if team == 2:
             for a in self.team2Apples:
                 if a in ResObjects.ApplesGoodIds:
-                    ts = ts + gameData.goodApple
+                    ts = ts + gameData["goodApple"]
                 if a in ResObjects.ApplesBadIds:
-                    ts = ts + gameData.badApple
+                    ts = ts + gameData["badApple"]
             ts = ts + self.team2bias
         return ts
 
