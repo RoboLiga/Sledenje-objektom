@@ -328,14 +328,15 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     # Compute score
     AreaT1 = [gLive.field["baskets"]["team1"]["topLeft"],gLive.field["baskets"]["team1"]["topRight"],gLive.field["baskets"]["team1"]["bottomRight"],gLive.field["baskets"]["team1"]["bottomLeft"]]
     AreaT2 = [gLive.field["baskets"]["team2"]["topLeft"],gLive.field["baskets"]["team2"]["topRight"],gLive.field["baskets"]["team2"]["bottomRight"],gLive.field["baskets"]["team2"]["bottomLeft"]]
-    for a in gLive.apples:
-        if a.type=='appleBad':
-                gameScore.removeApple(1,a.id)
-                gameScore.removeApple(2,a.id)
-        if checkIfObjectInArea(a.position[0:2],AreaT1):
-            gameScore.addApple(1,a.id)
-        if checkIfObjectInArea(a.position[0:2],AreaT2):
-            gameScore.addApple(2,a.id)
+    if gameStart:
+        for a in gLive.apples:
+            if a.type=='appleBad':
+                    gameScore.removeApple(1,a.id)
+                    gameScore.removeApple(2,a.id)
+            if checkIfObjectInArea(a.position[0:2],AreaT1):
+                gameScore.addApple(1,a.id)
+            if checkIfObjectInArea(a.position[0:2],AreaT2):
+                gameScore.addApple(2,a.id)
     gLive.team1["score"] = gameScore.getScore(1,gameData)
     gLive.team2["score"] = gameScore.getScore(2,gameData)
     outputFile = ResFileNames.gameLiveDataTempFileName
