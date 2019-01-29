@@ -53,6 +53,7 @@ class ObjectTracker:
         self.Qestimate2 = np.dot(self.A,self.Qestimate2)#+self.B*self.u
         
         self.P2 = np.dot(np.dot(self.A,self.P2),np.transpose(self.A)) + self.Ex
+        self.P = np.dot(np.dot(self.A,self.P),np.transpose(self.A)) + self.Ex
         K = np.dot(np.dot(self.P,np.transpose(self.C)),inv(np.dot(np.dot(self.C,self.P),np.transpose(self.C)) + self.Ez))
         K2 = np.dot(np.dot(self.P2,np.transpose(self.C)),inv(np.dot(np.dot(self.C,self.P2),np.transpose(self.C)) + self.Ez))
         if position:

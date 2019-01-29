@@ -336,8 +336,8 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
             gameScore.addApple(1,a.id)
         if checkIfObjectInArea(a.position[0:2],AreaT2):
             gameScore.addApple(2,a.id)
-    gLive.team1["score"] = gameScore.getScore(1)
-    gLive.team2["score"] = gameScore.getScore(2)
+    gLive.team1["score"] = gameScore.getScore(1,gameData)
+    gLive.team2["score"] = gameScore.getScore(2,gameData)
     outputFile = ResFileNames.gameLiveDataTempFileName
     with open(str(outputFile),'w') as f:
         #f.write(gLive.toJSON())
@@ -353,7 +353,7 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
             with open(ResFileNames.mapConfigFileName, 'wb') as output:
                 pickle.dump(configMap, output, pickle.HIGHEST_PROTOCOL)
 
-def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore):
+def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore, gameData):
         
         # Set font
         font = cv2.FONT_HERSHEY_SIMPLEX       
@@ -411,7 +411,7 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
         if gameStart:
             #cv2.putText(frame_markers,'Game On',(10,56), font,
             #1,(0,255,0),2,cv2.LINE_AA)
-            putTextCentered(frame_markers,ResGUIText.sTimeLeft + str(round(timeLeft)) + ' ' + ResGUIText.sScore + str(gameScore.getScore(1)) + ' - ' + str(gameScore.getScore(2)),(configMap.imageWidth // 2,30), font, 1,(0,0,255),2,cv2.LINE_AA)
+            putTextCentered(frame_markers,ResGUIText.sTimeLeft + str(round(timeLeft)) + ' ' + ResGUIText.sScore + str(gameScore.getScore(1,gameData)) + ' - ' + str(gameScore.getScore(2,gameData)),(configMap.imageWidth // 2,30), font, 1,(0,0,255),2,cv2.LINE_AA)
         # Display info when in map edit mode
         if fieldEditMode:
             #cv2.putText(frame_markers,'Field edit mode On',(10,56), font,
@@ -423,10 +423,10 @@ def drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStar
             try:
                textX = (configMap.fieldCorners[5][0] + configMap.fieldCorners[7][0]) // 2
                textY = (configMap.fieldCorners[5][1] + configMap.fieldCorners[7][1]) // 2
-               putTextCentered(frame_markers,str(gameScore.getScore(1)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
+               putTextCentered(frame_markers,str(gameScore.getScore(1,gameData)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
                textX = (configMap.fieldCorners[8][0] + configMap.fieldCorners[10][0]) // 2
                textY = (configMap.fieldCorners[8][1] + configMap.fieldCorners[10][1]) // 2
-               putTextCentered(frame_markers,str(gameScore.getScore(2)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
+               putTextCentered(frame_markers,str(gameScore.getScore(2,gameData)),(textX,textY), font, 1,(0,255,0),2,cv2.LINE_AA)
             except: 
                 pass
 

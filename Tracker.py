@@ -83,7 +83,7 @@ while(not quit):
         
         # Draw GUI and objects
         frame_markers = aruco.drawDetectedMarkers(color.copy(), cornersTracked, ids)
-        u.drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore)
+        u.drawOverlay(frame_markers, objects, configMap, timeLeft, gameScore, gameStart, fieldEditMode, changeScore, gameData)
         te = timer()
         fps = 1 / (te - ts)        
         u.drawFPS(frame_markers,fps)
