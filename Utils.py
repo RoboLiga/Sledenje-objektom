@@ -8,7 +8,7 @@ from shapely.geometry.polygon import Polygon
 from timeit import default_timer as timer
 from GameLiveData import GameLiveData
 from os import replace
-import ujson
+import ujson as json
 import pickle
 from ObjectTracker import ObjectTracker
 import Entity
@@ -342,7 +342,7 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
     outputFile = ResFileNames.gameLiveDataTempFileName
     with open(str(outputFile),'w') as f:
         #f.write(gLive.toJSON())
-        ujson.dump(gLive,f)
+        json.dump(gLive,f)
     try:
         replace(ResFileNames.gameLiveDataTempFileName,ResFileNames.gameLiveDataFileName)
     except:
@@ -461,7 +461,7 @@ def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, g
     elif keypressed == ord(ResKeys.loadKey) and not gameStart and not fieldEditMode:
             try:
                 with open(ResFileNames.gameDataFileName, "r") as read_file:
-                    gameData = ujson.load(read_file)
+                    gameData = json.load(read_file)
                 gameDataLoaded = True
                 print("Game Data loaded!")
             except Exception as e: 
