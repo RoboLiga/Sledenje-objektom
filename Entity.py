@@ -12,6 +12,7 @@ class Apple:
     """Holds data of an apple in the field"""
     def __init__(self,type,id,position,direction):    
         self.position = list(map(int,position))
+        self.direction = float(direction * 180 / pi)
         self.id = int(id)
         if type == ResObjects.APPLE_GOOD:
             self.type = "appleGood"
