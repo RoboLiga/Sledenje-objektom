@@ -460,7 +460,7 @@ def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, g
     # Load game data
     elif keypressed == ord(ResKeys.loadKey) and not gameStart and not fieldEditMode:
             try:
-                with open(ResFileNames.gameDataFileName, "r") as read_file:
+                with open(ResFileNames.gameDataFileName, "r", encoding='utf-8') as read_file:
                     gameData = json.load(read_file)
                 gameDataLoaded = True
                 print("Game Data loaded!")

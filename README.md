@@ -16,7 +16,7 @@
  ## Namestitev
 Repozitorij klonirajte v poljubno mapo. 
 
-V sistemu Windows si namestite okolje [Anaconda](https://www.anaconda.com/). Zaženite `Anaconda command prompt` in se v ukvazni vrstici premaknite v direktorij z datotekami sledilnika objektov. Zaženite ukaz `conda env create -f environment.py` in nato aktiviratje okolje preko ukaza `conda activate tracker`.
+V sistemu Windows si namestite okolje [Anaconda](https://www.anaconda.com/). Zaženite `Anaconda command prompt` in se v ukvazni vrstici premaknite v direktorij z datotekami sledilnika objektov. Zaženite ukaz `conda env create -f environment.yml` in nato aktiviratje okolje preko ukaza `conda activate tracker`.
 
 V okolju Linux si namestite najnovejšo verzijo Python 3. V ukazni vrstici se premaknite v direktorij z datotekami sledilnika objektov in zaženite ukaz `pip install -r ./requirements.txt`.
 
