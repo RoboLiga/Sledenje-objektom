@@ -16,7 +16,7 @@
 		
     },
     "currentGameTeams": {
-        "Team1": 44,
+        "Team1": -1,
         "Team2": -1
     },
     "gameTime": 100,
