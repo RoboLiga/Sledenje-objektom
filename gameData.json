@@ -1,6 +1,6 @@
 {
     "teams": {
-		"-1": ""
+		"-1": "",
         "0": "Super Glavce",
         "5": "GAYA",
 		"12": "Distopija",
@@ -15,7 +15,7 @@
 		"44": "( ͡° ͜ʖ ͡°)"
     },
     "currentGameTeams": {
-        "Team1": -1,
+        "Team1": 44,
         "Team2": -1
     },
     "gameTime": 100,
