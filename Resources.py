@@ -38,8 +38,8 @@ class ResFileNames:
     gameLiveDataFileName = "../nginx/html/game.json"
     gameLiveDataTempFileName = "gameLiveTemp.json"
     mapConfigFileName = "mapConfig"
-    #videoSource = "rtsp://193.2.72.149/axis-media/media.amp"
-    videoSource="http://193.2.72.149/mjpg/video.mjpg"
+    #videoSource = "rtsp://192.168.0.2/axis-media/media.amp"
+    videoSource="http://192.168.0.2/mjpg/video.mjpg"
 
 class ResKeys:
     loadKey = 'l'
