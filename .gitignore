@@ -267,3 +267,4 @@ __pycache__/
 
 # Project specific
 gameLiveTemp.json
+/profileTracker.py

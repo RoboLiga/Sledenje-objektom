@@ -27,7 +27,7 @@ class Score:
         return ts
 
     def addApple(self, team, id):
-        if team == 1:
+        if team == 1: 
             if id not in self.team1Apples:
                 self.team1Apples.append(id)
         if team == 2:

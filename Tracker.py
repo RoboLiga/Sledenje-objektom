@@ -102,7 +102,7 @@ while(not quit):
         u.drawFPS(frame_markers,fps)
     else:
        break
-  
+
 # When everything done, release the capture
 #t.join()
 #cap.stop()

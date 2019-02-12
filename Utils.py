@@ -317,13 +317,12 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
         gLive.field["baskets"]["team2"]["bottomLeft"] = moveOrigin(*tuple(configMap.fieldCorners[11]),configMap)
     #Fill objects
     for obj in objects:
-        if objects[obj].enabled == True:
-            if objects[obj].type == ResObjects.ROBOT:
-                gLive.robots.append(Entity.Robot(objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
-            if objects[obj].type == ResObjects.APPLE_GOOD:
-                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
-            if objects[obj].type == ResObjects.APPLE_BAD:
-                gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
+        if objects[obj].type == ResObjects.ROBOT:
+            gLive.robots.append(Entity.Robot(objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
+        if objects[obj].type == ResObjects.APPLE_GOOD:
+            gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
+        if objects[obj].type == ResObjects.APPLE_BAD:
+            gLive.apples.append(Entity.Apple(objects[obj].type,objects[obj].id,objects[obj].position[0:2],objects[obj].direction))
         
     # Compute score
     AreaT1 = [gLive.field["baskets"]["team1"]["topLeft"],gLive.field["baskets"]["team1"]["topRight"],gLive.field["baskets"]["team1"]["bottomRight"],gLive.field["baskets"]["team1"]["bottomLeft"]]
@@ -335,7 +334,7 @@ def writeGameData(configMap, gameData, gameScore, gameStart, timeLeft, objects, 
                     gameScore.removeApple(2,a.id)
             if checkIfObjectInArea(a.position[0:2],AreaT1):
                 gameScore.addApple(1,a.id)
-            if checkIfObjectInArea(a.position[0:2],AreaT2):
+            elif checkIfObjectInArea(a.position[0:2],AreaT2):
                 gameScore.addApple(2,a.id)
     gLive.team1["score"] = gameScore.getScore(1,gameData)
     gLive.team2["score"] = gameScore.getScore(2,gameData)
@@ -442,6 +441,7 @@ def drawFPS(frame_markers,fps):
 
 def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, gameDataLoaded, fieldEditMode, changeScore, quit):
     
+
     # Detect key press
     keypressed = cv2.waitKey(1) & 0xFF
     
