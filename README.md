@@ -24,3 +24,4 @@ V okolju Linux si namestite najnovejšo verzijo Python 3. V ukazni vrstici se pr
 * Vse sistemske nastavitve so v datoteki `Resources.py`.
 * Podatki o ekipah in nastavitve tekme so v datoteki `gameData.json`.
 * Sledenje zaženete z ukazom `python ./Tracker.py`, pri čemer se morate nahajati v mapi z datotekami sledilnika objektov. Če uporabljate Windows, morate to storiti preko programa `Anaconda command prompt`, v katerem ste pred tem aktivirali ustrezno okolje z ukazom `conda activate tracker`. 
+* Podatke iz kamere lahko nato servirate robotu s pomočjo spletnega strežnika, npr. [nginx](https://nginx.org/en/). Pri čemer morate ustrezno popraviti konfiguracijo v `Resources.py`, da se podatki iz kamere shranjejo v mapo, ki jo strežnik prikazuje na spletu. 
