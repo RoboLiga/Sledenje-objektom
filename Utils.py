@@ -463,6 +463,7 @@ def processKeys(gameStart, gameData, objects, gameScore, configMap, startTime, g
                 with open(ResFileNames.gameDataFileName, "r", encoding='utf-8') as read_file:
                     gameData = json.load(read_file)
                 gameDataLoaded = True
+                gameScore = Score()
                 print("Game Data loaded!")
             except Exception as e: 
                 print(e)
